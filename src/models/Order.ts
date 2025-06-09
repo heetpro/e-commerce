@@ -12,7 +12,7 @@ const AddressSchema = new Schema<Address>({
 
 const OrderItemSchema = new Schema<OrderItem>({
     product: { 
-        type: Schema.Types.ObjectId, 
+        type: String, 
         ref: 'Product', 
         required: true 
     },
@@ -32,7 +32,7 @@ const OrderItemSchema = new Schema<OrderItem>({
 
 const OrderSchema = new Schema<IOrder & Document>({
     user: { 
-        type: Schema.Types.ObjectId, 
+        type: String, 
         ref: 'User', 
         required: true 
     },
@@ -52,21 +52,21 @@ const OrderSchema = new Schema<IOrder & Document>({
         min: [0, 'Total amount cannot be negative']
     },
     status: { 
-        type: String, 
+        type: String,
         enum: ['pending', 'processing', 'shipped', 'delivered', 'cancelled'],
         default: 'pending'
     },
-    shippingAddress: { 
-        type: AddressSchema, 
-        required: true 
+    shippingAddress: {
+        type: AddressSchema,
+        required: true
     },
-    paymentMethod: { 
-        type: String, 
+    paymentMethod: {
+        type: String,
         enum: ['credit_card', 'debit_card', 'paypal', 'cash_on_delivery'],
         required: true
     },
-    paymentStatus: { 
-        type: String, 
+    paymentStatus: {
+        type: String,
         enum: ['pending', 'paid', 'failed'],
         default: 'pending'
     },
@@ -77,4 +77,4 @@ const OrderSchema = new Schema<IOrder & Document>({
 });
 
 
-export const OrderModel = mongoose.model<Order & Document>("Order", OrderSchema);
+export const OrderModel = mongoose.model<IOrder & Document>("Order", OrderSchema);
