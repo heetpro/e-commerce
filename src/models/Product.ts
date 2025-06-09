@@ -75,3 +75,16 @@ const productSchema = new Schema<IProduct & Document>({
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now }
 });
+
+productSchema.methods.updateRatings = async function(){
+    if(this.reviews.length > 0 ) {
+        const totalRating = this.reviews.reduce((sum: number, review: any) => sum + review.rating, 0);
+        this.ratings.average = totalRating / this.reviews.length;
+        this.ratings.count = this.reviews.length;
+    } else {
+        this.ratings.average = 0;
+        this.ratings.count = 0;
+    }   
+}
+
+export const ProductModel = mongoose.model<IProduct & Document>("Product", productSchema);
