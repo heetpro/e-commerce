@@ -10,10 +10,10 @@ const genrateToken = (userId: string): string => {
 }
 
 export const register = asyncHandler(async (req: Request, res: Response) => {
-    const { name, email, password} = req.body;
+    const { name, email, password } = req.body;
 
     const existingUser = await UserModel.findOne({ email })
-    if(existingUser){
+    if (existingUser) {
         return res.status(401).json({
             success: false,
             message: 'User already exists'
@@ -24,23 +24,23 @@ export const register = asyncHandler(async (req: Request, res: Response) => {
 
     const token = genrateToken(user._id.toString());
 
-   res.status(201).json({
-    success: true,
-    message: 'User registered successfully',
-    user: {
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
-    },
-    token
-   })    
+    res.status(201).json({
+        success: true,
+        message: 'User registered successfully',
+        user: {
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            role: user.role,
+        },
+        token
+    })
 });
 
-const login =asyncHandler(async (req: Request, res: Response) => {
+const login = asyncHandler(async (req: Request, res: Response) => {
     const { email, password } = req.body;
 
-    if(!email || !password) {
+    if (!email || !password) {
         return res.status(400).json({
             success: false,
             message: 'Email and password are required'
@@ -48,7 +48,7 @@ const login =asyncHandler(async (req: Request, res: Response) => {
     }
 
     const user = await UserModel.findOne({ email });
-    if(!user) {
+    if (!user) {
         return res.status(401).json({
             success: false,
             message: 'Invalid credentials'
@@ -56,7 +56,7 @@ const login =asyncHandler(async (req: Request, res: Response) => {
     }
 
     const isPasswordValid = await (user as any).comparePassword(password);
-    if(!isPasswordValid) {
+    if (!isPasswordValid) {
         return res.status(401).json({
             success: false,
             message: 'Password is incorrect'
@@ -66,19 +66,25 @@ const login =asyncHandler(async (req: Request, res: Response) => {
     const token = genrateToken(user._id.toString());
 
     res.status(200).json({
-      success: true,
-      message: 'Login successful',
-      user: {
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
-      },
-      token
+        success: true,
+        message: 'Login successful',
+        user: {
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            role: user.role,
+        },
+        token
     })
 })
 
-export const getProfile = asyncHandler(async (req: Request, res: Response ) => {
+export const getProfile = asyncHandler(async (req: Request, res: Response) => {
+    const user = await UserModel.findById((req as any).user._id);
 
-}) 
+    res.status(200).json({
+        success: true,
+        message: 'Profile fetched successfully',
+        data: { user }
+    })
+});
 
