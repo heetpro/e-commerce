@@ -117,4 +117,62 @@ export const updateProduct = asyncHandler(async (req: Request, res: Response) =>
     })
 });
 
+export const deleteProduct = asyncHandler(async (req: Request, res: Response) => {
 
+    const product = await ProductModel.findByIdAndDelete(req.params.id);
+
+    if (!product) {
+        return res.status(404).json({
+            success: false,
+            message: 'Product not found'
+        });
+    }
+
+    await ProductModel.findByIdAndDelete(req.params.id);
+
+    res.json({
+        success: true,
+        message: 'Product deleted successfully'
+    });
+})
+
+
+export const addReview = asyncHandler(async (req: Request, res: Response) => {
+
+    const { rating, comment } = req.body;
+    const productId = req.params.id;
+    const userId = (req as any).user._id;
+
+    const product = await ProductModel.findById(productId);
+    if (!product) {
+        return res.status(404).json({
+            success: false,
+            message: 'Product not found'
+        });
+    }
+
+    const existingReview = product.reviews.find((review: any) => review.userId.toString() === userId.toString());
+    
+    if (existingReview) {
+        return res.status(400).json({
+            success: false,
+            message: 'You have already reviewed this product'
+        });
+    }
+
+    product.reviews.push({
+        userId,
+        rating,
+        comment,
+        createdAt: new Date()
+    } as any);
+
+    (product as any).updateRatings();
+    await product.save();
+
+    res.json({
+        success: true,
+        message: 'Review added successfully',
+        data: { product }
+    });
+})
