@@ -40,3 +40,25 @@ export const authenticate = async (req:AuthRequest, res:Response, next:NextFunct
 }
     
 }
+
+export const authorize = (...roles: string[]) => {
+    return (req:AuthRequest, res:Response, next:NextFunction) => {
+        if(!req.user) {
+            return res.status(401).json({
+                success: false,
+                message: 'Access denied. Please Authenticate yourself first.'
+            })
+        }
+
+        if(!roles.includes(req.user.role)) {
+            return res.status(403).json({
+                success: false,
+                message: 'Access denied. Insufficient permissions to access this resource.'
+            })
+        }
+        
+
+        next();
+    }
+};
+
