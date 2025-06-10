@@ -7,6 +7,7 @@ import morgan from "morgan";
 import authRoutes from "./routes/auth";
 import productsRoutes from "./routes/products";
 import ordersRoutes from "./routes/orders";
+import { errorHandler } from "./middleware/errorHandler";
 
  const app = express()
 
@@ -51,3 +52,6 @@ import ordersRoutes from "./routes/orders";
         message: 'Route not found'
     });
 });
+
+app.use(errorHandler);
+export default app;
