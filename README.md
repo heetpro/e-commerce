@@ -305,9 +305,7 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 <p align="center">
   <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&pause=1000&color=667EEA&center=true&vCenter=true&width=435&lines=Modern+E-Commerce+Solution;Built+with+TypeScript+%26+Express;Secure+%26+Scalable+Backend;Powered+by+Bun+Runtime" alt="Typing SVG" />
 </p> 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&pause=1000&color=667EEA&center=true&vCenter=true&width=435&lines=Built+with+❤️+by+Heet+Vavadiya;Happy+Coding" alt="Footer Typing SVG" />
 
-**Made with ❤️ and lots of ☕**
 
 </div>
 
