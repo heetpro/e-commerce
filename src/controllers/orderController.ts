@@ -109,7 +109,7 @@ export const getOrderById = asyncHandler(async (req: Request, res: Response) => 
 })
 
 
-const updateOrderStatus = asyncHandler(async (req: Request, res:Response) => {
+export const updateOrderStatus = asyncHandler(async (req: Request, res:Response) => {
     const { status, trackingUrl } = req.body;
 
     const order = await OrderModel.findByIdAndUpdate(
