@@ -38,7 +38,7 @@ export interface Order {
     user: string;
     items: OrderItem[];
     totalAmount: number;
-    status: 'pending' | 'processing' | 'shipped' | 'delivered' | 'cancelled';
+    status: 'pending' | 'processing'| 'ready to ship' | 'shipped' | 'delivered' | 'cancelled';
     shippingAddress: Address;
     paymentMethod: 'credit_card' | 'debit_card' | 'paypal' | 'cash_on_delivery';
     paymentStatus: 'pending' | 'paid' | 'failed';

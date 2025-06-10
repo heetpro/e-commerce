@@ -3,6 +3,7 @@ import { config } from '../config/config';
 import type { Request, Response } from 'express';
 import { UserModel } from '../models/User';
 import { asyncHandler } from '../middleware/errorHandler';
+import type { AuthRequest } from '../middleware/auth';
 
 const genrateToken = (userId: string): string => {
     // @ts-ignore - Ignore type checking for jwt.sign to resolve the issue
@@ -37,7 +38,7 @@ export const register = asyncHandler(async (req: Request, res: Response) => {
     })
 });
 
-const login = asyncHandler(async (req: Request, res: Response) => {
+export const login = asyncHandler(async (req: Request, res: Response) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
@@ -78,8 +79,8 @@ const login = asyncHandler(async (req: Request, res: Response) => {
     })
 })
 
-export const getProfile = asyncHandler(async (req: Request, res: Response) => {
-    const user = await UserModel.findById((req as any).user._id);
+export const getProfile = asyncHandler(async (req: AuthRequest, res: Response) => {
+    const user = await UserModel.findById(req.user?._id);
 
     res.status(200).json({
         success: true,
