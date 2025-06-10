@@ -19,7 +19,7 @@
   "scripts": {
     "dev": "bun run --watch src/server.ts",
     "build": "tsc",
-    "start": "bun run dist/server.js",
+    "start": "bun run src/server.ts",
     "lint": "eslint src/**/*.ts"
   },
   "dependencies": {
