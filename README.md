@@ -162,8 +162,6 @@ e-commerce/
 │   ├── 📂 middleware/      # Custom middleware
 │   ├── 📂 models/          # Mongoose models
 │   ├── 📂 routes/          # API routes
-│   ├── 📂 services/        # Business logic
-│   ├── 📂 utils/           # Utility functions
 │   ├── 📂 types/           # TypeScript types
 │   └── 📄 server.ts        # Application entry point
 ├── 📂 dist/                # Compiled JavaScript
